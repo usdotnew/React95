@@ -2,4 +2,8 @@
 node_modules
 yarn-error.log
 
+**/.cache
+
+packages/explorer/public
+
 dist

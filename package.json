@@ -38,7 +38,8 @@
   ],
   "scripts": {
     "commit": "git-cz",
-    "dev": "yarn workspace @react95/core storybook",
+    "dev": "yarn workspace @react95/explorer dev",
+    "storybook": "yarn workspace @react95/core storybook",
     "clean": "lerna clean",
     "build": "lerna run build --stream --parallel"
   },
