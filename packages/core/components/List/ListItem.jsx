@@ -67,7 +67,7 @@ const Item = styled.li`
           background-color: ${th('colors.white')};
         }
 
-        ul {
+        > ul {
           display: block;
         }
       }
