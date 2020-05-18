@@ -10,6 +10,21 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value: `${value}`,
     });
+    createNodeField({
+      name: 'title',
+      node,
+      value: node.frontmatter.title,
+    });
+    createNodeField({
+      name: 'icon',
+      node,
+      value: node.frontmatter.icon || 'bat_exec',
+    });
+    createNodeField({
+      name: 'tags',
+      node,
+      value: node.frontmatter.tags || [],
+    });
   }
 };
 
