@@ -4,9 +4,18 @@ import styled from 'styled-components';
 
 import useIcon from './useIcon';
 
-const I = styled.i.attrs(({ url }) => ({
+const I = styled.i.attrs(({ url, focus }) => ({
   style: {
-    backgroundImage: url ? `url('${url}')` : 'none',
+    backgroundImage: url
+      ? `${
+          focus
+            ? `linear-gradient(
+      rgba(0, 14, 122, 0.45), 
+      rgba(0, 14, 122, 0.45)
+    ),`
+            : ''
+        } url('${url}')`
+      : 'none',
   },
 }))`
   display: block;
@@ -21,7 +30,7 @@ const I = styled.i.attrs(({ url }) => ({
   `}
 `;
 
-const Icon = ({ name, width, height, size, fallback, ...rest }) => {
+const Icon = ({ name, width, height, size, fallback, focus, ...rest }) => {
   const { iconUrl, changeIconUrl, availableIcons } = useIcon({
     name,
     size,
@@ -41,6 +50,7 @@ const Icon = ({ name, width, height, size, fallback, ...rest }) => {
       height={height || size}
       {...rest}
       url={iconUrl}
+      focus={focus}
     />
   );
 };
@@ -51,6 +61,7 @@ Icon.propTypes = {
   height: PropTypes.number,
   fallback: PropTypes.bool,
   size: PropTypes.number,
+  focus: PropTypes.bool,
 };
 
 Icon.defaultProps = {
@@ -59,6 +70,7 @@ Icon.defaultProps = {
   height: undefined,
   fallback: true,
   size: 32,
+  focus: false,
 };
 
 export default Icon;
