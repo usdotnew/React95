@@ -45,7 +45,7 @@ const ComponentFile = styled.a`
       : ''}
 `;
 
-const File = ({ icon, name }) => {
+const File = ({ icon, name, ...props }) => {
   const [focus, toggleFocus] = useState(false);
   const handleFocus = () => toggleFocus(!focus);
 
@@ -55,6 +55,7 @@ const File = ({ icon, name }) => {
       onFocus={handleFocus}
       onBlur={handleFocus}
       focused={focus}
+      {...props}
     >
       <ComponentIcon
         name={icon}

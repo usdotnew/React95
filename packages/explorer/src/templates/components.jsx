@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { MDXProvider } from '@mdx-js/react';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { graphql, Link } from 'gatsby';
@@ -10,27 +11,38 @@ import { Layout } from '../components';
 const { ThemeProvider, GlobalStyle, ...React95Components } = react95;
 const components = { Link, ...React95Components };
 
-export default function ComponentTemplate({ data: { mdx } }) {
+function ComponentTemplate({
+  data: {
+    mdx: { body },
+  },
+}) {
   return (
     <Layout>
       <div>
-        <h1>{mdx.frontmatter.title}</h1>
         <MDXProvider components={components}>
-          <MDXRenderer>{mdx.body}</MDXRenderer>
+          <MDXRenderer>{body}</MDXRenderer>
         </MDXProvider>
       </div>
     </Layout>
   );
 }
 
+ComponentTemplate.propTypes = {
+  data: PropTypes.shape({
+    mdx: PropTypes.shape({
+      id: PropTypes.string,
+      body: PropTypes.string,
+    }),
+  }).isRequired,
+};
+
 export const pageQuery = graphql`
   query BlogPostQuery($id: String) {
     mdx(id: { eq: $id }) {
       id
       body
-      frontmatter {
-        title
-      }
     }
   }
 `;
+
+export default ComponentTemplate;
