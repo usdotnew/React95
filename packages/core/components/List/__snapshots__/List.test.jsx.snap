@@ -72,7 +72,7 @@ exports[`<List /> Snapshots should match snapshot 1`] = `
   background-color: #ffffff;
 }
 
-.c1:hover ul {
+.c1:hover > ul {
   display: block;
 }
 
