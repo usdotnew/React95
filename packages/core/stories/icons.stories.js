@@ -96,7 +96,23 @@ storiesOf('Icon', module)
                 cellRenderer={({ cellData }) => (
                   <>
                     <span>{cellData}</span>
-                    <p>({availableSizes[cellData].join(', ')})</p>
+                    <p style={{ display: 'flex', flexDirection: 'column' }}>
+                      <span>
+                        sizes: (
+                        {availableSizes[cellData].map(s => s.size).join(', ')})
+                      </span>
+                      <span>
+                        bpp: (
+                        {availableSizes[cellData].map(s => s.bpp).join(', ')})
+                      </span>
+                      <span>
+                        variant: (
+                        {availableSizes[cellData]
+                          .map(s => s.variant)
+                          .join(', ')}
+                        )
+                      </span>
+                    </p>
                   </>
                 )}
               />
@@ -227,20 +243,26 @@ storiesOf('Icon', module)
       </Tab>
       <Tab title="All Icons (laggy)">
         <Frame overflowY="auto" boxShadow="none" height="calc(100vh - 80px)">
-          {Object.entries(availableSizes).map(([name, sizes]) => (
-            <div key={name} style={{ marginTop: 4 }}>
-              <AllIconsName>{name}:</AllIconsName>
-              {sizes.map(size => (
-                <Icon
-                  key={`${name}-${size}`}
-                  name={name}
-                  size={size}
-                  style={{ display: 'inline-block', marginRight: 4 }}
-                  title={`${name} icon in ${size}x${size}px`}
-                />
-              ))}
-            </div>
-          ))}
+          {availableSizes.map(iconDef => {
+            const [[name, sizes]] = Object.entries(iconDef);
+
+            return (
+              <div key={name} style={{ marginTop: 4 }}>
+                <AllIconsName>{name}:</AllIconsName>
+                {sizes.map(({ size, bpp, variant }) => (
+                  <Icon
+                    key={`${name}-${size}-${bpp}-${variant}`}
+                    bpp={bpp}
+                    name={name}
+                    size={size}
+                    variant={variant}
+                    style={{ display: 'inline-block', marginRight: 4 }}
+                    title={`${name} icon in ${size}x${size}px with ${bpp} bits per pixel and variant ${variant}`}
+                  />
+                ))}
+              </div>
+            );
+          })}
         </Frame>
       </Tab>
     </Tabs>

@@ -30,11 +30,23 @@ const I = styled.i.attrs(({ url, focus }) => ({
   `}
 `;
 
-const Icon = ({ name, width, height, size, fallback, focus, ...rest }) => {
+const Icon = ({
+  name,
+  width,
+  height,
+  size,
+  fallback,
+  focus,
+  bpp,
+  variant,
+  ...rest
+}) => {
   const { iconUrl, changeIconUrl, availableIcons } = useIcon({
     name,
     size,
     fallback,
+    bpp,
+    variant,
   });
 
   useEffect(() => {
@@ -62,6 +74,8 @@ Icon.propTypes = {
   fallback: PropTypes.bool,
   size: PropTypes.number,
   focus: PropTypes.bool,
+  bpp: PropTypes.number,
+  variant: PropTypes.number,
 };
 
 Icon.defaultProps = {
@@ -71,6 +85,9 @@ Icon.defaultProps = {
   fallback: true,
   size: 32,
   focus: false,
+  /** Image color depth as bits per pixel. */
+  bpp: 4,
+  variant: 1,
 };
 
 export default Icon;
